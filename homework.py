@@ -1,7 +1,7 @@
 """Calories / cash calculator.
 
-This module provides calories/cash statistics for today and last 7 days, 
-allows to set a daily limit and check if it is reached (how much is left - 
+This module provides calories/cash statistics for today and last 7 days,
+allows to set a daily limit and check if it is reached (how much is left -
 if not).
 """
 import datetime as dt
@@ -15,13 +15,13 @@ class Record:
     Attributes:
         amount: A numeric count of the spent cash/consumed calories in a day.
         comment: A string explanatory comment for spending/consuming.
-        [date]: A string/datetime.date date for spending/consuming. Default 
+        [date]: A string/datetime.date date for spending/consuming. Default
                 value: None.
     """
 
-    def __init__(self, amount, comment, date = None):
+    def __init__(self, amount, comment, date=None):
         """Inits Record class and converts date to datetime.date format.
-        
+
         If date is not mentioned it is assigned today date.
         """
         self.amount = amount
@@ -31,7 +31,7 @@ class Record:
         else:
             self.date = dt.date.today()
 
-            
+
 class Calculator:
     """This class contains info about the set daily limit for calories/cash.
 
@@ -43,27 +43,27 @@ class Calculator:
         """Inits Calculator class and list of input records."""
         self.limit = limit
         self.records = []
-    
+
     def add_record(self, record):
         """Adds Record object to the list of records.
-        
+
         Args:
             record: A Record object to add in the list of records
 
         No Returns.
 
-        No Raises. 
+        No Raises.
         """
         self.records.append(record)
 
     def get_today_stats(self):
         """Returns calories/cash sum for today.
-        
+
         No Args.
-        
+
         Returns:
             A numeric count of calories/cash for today.
-        
+
         No Raises.
         """
         day_amounts = 0
@@ -74,12 +74,12 @@ class Calculator:
 
     def get_week_stats(self):
         """Returns calories/cash sum for last 7 days.
-        
+
         No Args.
-        
+
         Returns:
             A numeric count of calories/cash for last 7 days.
-            
+ 
         No Raises.
         """
         week_amounts = 0
@@ -88,12 +88,12 @@ class Calculator:
         week_delta = [dt.timedelta(days=day) for day in range(7)]
         for rec in self.records:
             if dt.date.today() - rec.date in week_delta:
-                week_amounts += rec.amount    
+                week_amounts += rec.amount
         return week_amounts
 
-            
+
 class CaloriesCalculator(Calculator):
-    """This class provides method for calculating remained calories for today 
+    """This class provides method for calculating remained calories for today
     due to the daily limit and giving the text information about it.
 
     Attributes:
@@ -122,7 +122,7 @@ class CaloriesCalculator(Calculator):
 
 
 class CashCalculator(Calculator):
-    """This class provides method for calculating cash balance for today due 
+    """This class provides method for calculating cash balance for today due
     to the daily limit and giving the text information about it.
 
     Attributes:
@@ -133,26 +133,26 @@ class CashCalculator(Calculator):
     EURO_RATE = 70.
     RUB_RATE = 1.
     CURRENCIES = {
-                  'rub': ['руб', RUB_RATE],
-                  'usd': ['USD', USD_RATE],
-                  'eur': ['EUR', EURO_RATE],
-                 }
+                'rub': ['руб', RUB_RATE],
+                'usd': ['USD', USD_RATE],
+                'eur': ['EUR', EURO_RATE],
+                }
 
     def get_today_cash_remained(self, currency):
         """Returns the amount of the cash balance from the limit.
 
         Args:
-            currency: A string preference for output cash balance - 'rub' / 
+            currency: A string preference for output cash balance - 'rub' /
                       'usd' / 'eur'.
 
         Returns:
-            A string containing remained cash balance (if not 0) for today 
+            A string containing remained cash balance (if not 0) for today
             due to the daily limit and advice.
 
         No Raises.
         """
-        remained = ((self.limit - super().get_today_stats()) /
-                    self.CURRENCIES[currency][1])
+        remained = ((self.limit - super().get_today_stats())
+                   / self.CURRENCIES[currency][1])
         selected_currency = self.CURRENCIES[currency][0]
         if remained > 0:
             return (f'На сегодня осталось {remained:.2f} '
@@ -161,4 +161,4 @@ class CashCalculator(Calculator):
             return ('Денег нет, держись: твой долг - '
                     f'{abs(remained):.2f} {selected_currency}')
         else:
-            return 'Денег нет, держись'          
+            return 'Денег нет, держись'
