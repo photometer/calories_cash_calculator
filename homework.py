@@ -79,7 +79,7 @@ class Calculator:
 
         Returns:
             A numeric count of calories/cash for last 7 days.
- 
+
         No Raises.
         """
         week_amounts = 0
@@ -132,11 +132,9 @@ class CashCalculator(Calculator):
     USD_RATE = 60.
     EURO_RATE = 70.
     RUB_RATE = 1.
-    CURRENCIES = {
-                'rub': ['руб', RUB_RATE],
-                'usd': ['USD', USD_RATE],
-                'eur': ['EUR', EURO_RATE],
-                }
+    CURRENCIES = {'rub': ['руб', RUB_RATE],
+                  'usd': ['USD', USD_RATE],
+                  'eur': ['EUR', EURO_RATE],}
 
     def get_today_cash_remained(self, currency):
         """Returns the amount of the cash balance from the limit.
@@ -152,7 +150,7 @@ class CashCalculator(Calculator):
         No Raises.
         """
         remained = ((self.limit - super().get_today_stats())
-                   / self.CURRENCIES[currency][1])
+                     / self.CURRENCIES[currency][1])
         selected_currency = self.CURRENCIES[currency][0]
         if remained > 0:
             return (f'На сегодня осталось {remained:.2f} '
