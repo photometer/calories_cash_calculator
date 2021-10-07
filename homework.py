@@ -24,7 +24,7 @@ class Record:
     date: dt.date
 
     def __init__(self, amount: float, comment: str,
-                 date: Optional[str]=None) -> None:
+                 date: Optional[str] = None) -> None:
         """Inits Record class and converts date to datetime.date format.
 
         If date is not mentioned it is assigned today date.
@@ -92,9 +92,8 @@ class CaloriesCalculator(Calculator):
             reached) and advice.
         """
         if super().get_remained() > 0:
-            return ('Сегодня можно съесть что-нибудь ещё, но '
-                    'с общей калорийностью не более '
-                    f'{super().get_remained()} кКал')
+            return ('Сегодня можно съесть что-нибудь ещё, но с общей '
+                    f'калорийностью не более {super().get_remained()} кКал')
         return 'Хватит есть!'
 
 
@@ -135,4 +134,4 @@ class CashCalculator(Calculator):
             return (f'На сегодня осталось {remained:.2f} '
                     f'{currency_name}')
         return ('Денег нет, держись: твой долг - '
-                    f'{abs(remained):.2f} {currency_name}')
+                f'{abs(remained):.2f} {currency_name}')
