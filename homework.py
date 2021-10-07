@@ -92,9 +92,8 @@ class CaloriesCalculator(Calculator):
             reached) and advice.
         """
         if super().get_remained() > 0:
-            return ('Сегодня можно съесть что-нибудь ещё, но '
-                    'с общей калорийностью не более '
-                    f'{super().get_remained()} кКал')
+            return ('Сегодня можно съесть что-нибудь ещё, но с общей '
+                    f'калорийностью не более {super().get_remained()} кКал')
         return 'Хватит есть!'
 
 
