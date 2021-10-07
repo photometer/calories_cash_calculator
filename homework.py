@@ -131,7 +131,6 @@ class CashCalculator(Calculator):
         currency_name, currency_rate = self.CURRENCIES[currency]
         remained = (super().get_remained() / currency_rate)
         if remained > 0:
-            return (f'На сегодня осталось {remained:.2f} '
-                    f'{currency_name}')
+            return (f'На сегодня осталось {remained:.2f} {currency_name}')
         return ('Денег нет, держись: твой долг - '
                 f'{abs(remained):.2f} {currency_name}')
