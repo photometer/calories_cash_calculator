@@ -91,9 +91,10 @@ class CaloriesCalculator(Calculator):
             Remained calories for today due to the daily limit (if not
             reached) and advice.
         """
-        if super().get_remained() > 0:
+        remained = super().get_remained()
+        if remained > 0:
             return ('Сегодня можно съесть что-нибудь ещё, но с общей '
-                    f'калорийностью не более {super().get_remained()} кКал')
+                    f'калорийностью не более {remained} кКал')
         return 'Хватит есть!'
 
 
@@ -125,11 +126,13 @@ class CashCalculator(Calculator):
         Raises:
             KeyError: If currency not found in the CURRENCIES dictionary.
         """
-        if super().get_remained() == 0:
+        remained = super().get_remained()
+        if remained == 0:
             return 'Денег нет, держись'
-        assert(currency in self.CURRENCIES), 'Нет данных по валюте'
+        if currency not in self.CURRENCIES:
+            raise KeyError('Нет данных по валюте')
         currency_name, currency_rate = self.CURRENCIES[currency]
-        remained = (super().get_remained() / currency_rate)
+        remained /= currency_rate
         if remained > 0:
             return (f'На сегодня осталось {remained:.2f} {currency_name}')
         return ('Денег нет, держись: твой долг - '
