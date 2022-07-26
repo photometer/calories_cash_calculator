@@ -4,7 +4,7 @@ This module provides calories/cash stats for today and last 7 days, allows
 to set a daily limit and check if it is reached (how much is left - if not).
 
 ## Calculator can:
-- Save *new meal / spending money* record with ```add_record()``` method
+- Save *new meal / spending money* record with ```python add_record()``` method
 - Count *how many calories are consumed / how much money is spent* today with
 ```get_today_stats()``` method
 - Define *how many calories can be consumed* today with
@@ -16,12 +16,12 @@ to set a daily limit and check if it is reached (how much is left - if not).
  
 ## Examples
 - Required input data
-    ```
+    ```python
     calories_calculator = CaloriesCalculator(limit=1800)
     cash_calculator = CashCalculator(limit=1000)
     ```
 - Create records (amount and comment are required!)
-    ```
+    ```python
     # for calories calculator
     r1 = Record(amount=439, comment='very tasty cookie')
     r2 = Record(amount=30, comment='juice', date='26.08.2021')
@@ -31,7 +31,7 @@ to set a daily limit and check if it is reached (how much is left - if not).
     r4 = Record(amount=2000, comment='debt to sister', date='01.10.2021')
     ```
 - Save records
-    ```
+    ```python
     # for calories calculator
     for record in r1, r2:
         calories_calculator.add_record(record)
@@ -41,12 +41,12 @@ to set a daily limit and check if it is reached (how much is left - if not).
         cash_calculator.add_record(record)
     ```
 - Output results
-    ```
+    ```python
     print(calories_calculator.get_calories_remained())
     print(cash_calculator.get_today_cash_remained('rub'))
-    
-    >>> Today you can eat something else but with a total calorie content of
-    no more than 1361 kcal
+    ```
+    ```
+    >>> Today you can eat something else but with a total calorie content of no more than 1361 kcal
     Left for today: 561.00 RUB
     ```
 
@@ -70,16 +70,18 @@ decimal places (to hundredths):
 
 ## Project usage and structure
 
-- You can clone this repository with
-```git clone https://github.com/photometer/calories_cash_calculator```
+- You can clone this repository:
+```bash
+git clone https://github.com/photometer/calories_cash_calculator
+```
 - In this project folder create and activate virtual environment
 (recommendations for Windows):
- ```
+ ```bash
  python -m venv venv
  . venv/scripts/activate
  ```
  - Install pytest with ```pip install pytest==5.3.2``` or this way:
- ```
+ ```bash
  pip install -r requirements.txt
  ```
  - Run pytest with command ```pytest```
