@@ -93,9 +93,9 @@ class CaloriesCalculator(Calculator):
         """
         remained = super().get_remained()
         if remained > 0:
-            return ('Сегодня можно съесть что-нибудь ещё, но с общей '
-                    f'калорийностью не более {remained} кКал')
-        return 'Хватит есть!'
+            return ('Today you can eat something else but with a total '
+                    f'calorie content of no more than {remained} kcal')
+        return 'Stop eating!'
 
 
 class CashCalculator(Calculator):
@@ -109,7 +109,7 @@ class CashCalculator(Calculator):
     USD_RATE: float = 60.
     EURO_RATE: float = 70.
     RUB_RATE: float = 1.
-    CURRENCIES: dict[str, tuple[str, float]] = {'rub': ('руб', RUB_RATE),
+    CURRENCIES: dict[str, tuple[str, float]] = {'rub': ('RUB', RUB_RATE),
                                                 'usd': ('USD', USD_RATE),
                                                 'eur': ('EUR', EURO_RATE), }
 
@@ -128,12 +128,12 @@ class CashCalculator(Calculator):
         """
         remained = super().get_remained()
         if remained == 0:
-            return 'Денег нет, держись'
+            return 'No money, hold on!'
         if currency not in self.CURRENCIES:
-            raise KeyError('Нет данных по валюте')
+            raise KeyError('No currency data')
         currency_name, currency_rate = self.CURRENCIES[currency]
         remained /= currency_rate
         if remained > 0:
-            return (f'На сегодня осталось {remained:.2f} {currency_name}')
-        return ('Денег нет, держись: твой долг - '
+            return (f'Left for today: {remained:.2f} {currency_name}')
+        return ('No money, hold on! Your debt: '
                 f'{abs(remained):.2f} {currency_name}')
